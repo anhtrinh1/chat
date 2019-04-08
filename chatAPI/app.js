@@ -25,6 +25,10 @@ app.use(function(req, res) {
 })
 
 
-app.listen(port);
+// app.listen(port);
+var server = require("http").Server(app);
+var io = require("socket.io")(server);
+server.listen(port);
+
 
 console.log('RESTful API server started on: ' + port);
