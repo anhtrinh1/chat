@@ -1,49 +1,30 @@
 "use strict";
 
-var sqlite3 = require('sqlite3').verbose();
-var db;
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const port = 3000;
 
-function createDb() {
-    console.log("createDb");
-    db = new sqlite3.Database('./db/chat.sqlite3', createTable);
-}
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
+//importing route
+let userRoutes = require('./routes/users_routes'); 
+userRoutes(app);
+let chatRoutes = require('./routes/chat_routes'); 
+chatRoutes(app);
+ 
+
+app.use(function(req, res) {
+    res.status(404).send({url: req.originalUrl + ' not found'});
+})
 
 
-function createTable() {
-    console.log("createTable");
-    db.run("CREATE TABLE IF NOT EXISTS users ("+
-        "userId INTEGER PRIMARY KEY AUTOINCREMENT,"+
-        "userName VARCHAR(30) UNIQUE NOT NULL," +
-        "password VARCHAR(20) NOT NULL );", insertRows);
-}
+app.listen(port);
 
-function insertRows() {
-    console.log("insertRows");
-    var stmt = db.prepare("INSERT INTO users VALUES (?,?,?)");
-
-    for (var i = 0; i < 3; i++) {
-        stmt.run(i,"TrinhNA" + i, "1234");
-    }
-    stmt.finalize(readAllRows);
-}
-
-function readAllRows() {
-    console.log("readAllRows");
-    db.all("SELECT * FROM users", function(err, rows) {
-        rows.forEach(function (row) {
-            console.log(row.userId + ": " + row.userName);
-        });
-        closeDb();
-    });
-}
-
-function closeDb() {
-    console.log("closeDb");
-    db.close();
-}
-
-function runChainExample() {
-    createDb();
-}
-
-runChainExample();
+console.log('RESTful API server started on: ' + port);

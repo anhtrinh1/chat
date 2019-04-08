@@ -12,3 +12,11 @@ sqlite> CREATE TABLE users (
  password VARCHAR(20) NOT NULL
  );
 sqlite>
+
+ CREATE TABLE messages (
+ messageId INTEGER PRIMARY KEY AUTOINCREMENT,
+ body TEXT NOT NULL,
+ createDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ userIdSent INTEGER NOT NULL,
+ userIdReceive INTEGER NOT NULL
+ );
