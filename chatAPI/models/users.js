@@ -6,14 +6,15 @@ module.exports = {
     login: (req, res) => {
         let data = req.body;
         console.log(data);
-        db.get("SELECT userName FROM users where userName = ? and password = ?", [data.userName, data.password], function(err, rows) {
+        db.get("SELECT userName, userId FROM users where userName = ? and password = ?", [data.userName, data.password], function(err, rows) {
             if(rows){
                 console.log(rows);
                 res.json(
                     {
                         status: true, 
                         message: 'Login success!',        
-                        users: data.userName
+                        users: data.userName,
+                        userId : rows.userId
                     }
                 );
             } else {
@@ -21,7 +22,8 @@ module.exports = {
                     {
                         status: false, 
                         message: 'Login error!',        
-                        users: data.userName
+                        users: data.userName,
+                        userId : ""
                     }
                 );     
             }         

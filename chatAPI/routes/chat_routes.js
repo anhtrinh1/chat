@@ -1,7 +1,16 @@
 "use strict";
-module.exports = function(app) {
-    let chatModels = require('../models/chat');
+let chatModels = require('../models/chat');
+module.exports = {    
     // todoList Routes
-    app.route('/chat/getMessages').post(chatModels.get);
-    app.route('/chat/sent').post(chatModels.sent);
-  };
+    // app.route('/chat/getMessages').post(chatModels.get);
+    // app.route('/chat/sent').post(chatModels.sent);
+    get(idSent, idReceive){
+      var res = chatModels.get(idSent, idReceive);
+      return res;
+    },
+    sent(body,idSent, idReceive) {
+      var res = chatModels.sent(body,idSent, idReceive);
+      console.log("res" + res);
+      return res;
+    } 
+};
