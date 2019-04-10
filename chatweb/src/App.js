@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from './components/login/login';
-
+import Chat from './components/chat/chat';
 
 class App extends Component {
    
@@ -18,6 +17,9 @@ class App extends Component {
         <BrowserRouter>
         <Switch>
         <Route  exact  path='/login' component={Login}/> 
+        </Switch>
+        <Switch>
+        <Route  exact  path='/chat' component={Chat}/> 
         </Switch>
         </BrowserRouter>
       

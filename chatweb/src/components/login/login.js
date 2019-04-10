@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './login.css';
 import axios from 'axios';
+import {reactLocalStorage} from 'reactjs-localstorage';
 
 class login extends Component {
 
@@ -28,7 +29,8 @@ handleSubmit = event => {
   const user = {
     userName: this.state.userName,
     password: this.state.password,
-    userId: this.state.userId
+    userId: this.state.userId,
+    userIdReceive: this.state.userIdReceive
   };
 
 const params = new URLSearchParams();
@@ -36,13 +38,16 @@ params.append('password',user.password);
 params.append('userName', user.userName); 
  
 
-  axios.post('http://localhost:3001/users/login',  params,{
+  axios.post('http://localhost:4000/users/login',  params,{
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
     }
   }).then(res => {
-    console.log(user);
-    console.log(res.data);
+    let data = res.data; 
+    if(data.status){
+      reactLocalStorage.set('userId', data.userId);      
+      window.location="/chat";
+    }
   })
 }
   render() {
@@ -66,7 +71,13 @@ params.append('userName', user.userName);
             <button type="submit">login</button>
           </form>
         </div>
+        {/* <BrowserRouter>
+       <Switch>
+       <Route  exact  path='/chat' component={Chat}/> 
+       </Switch>
+       </BrowserRouter> */}
       </div>
+       
     );
   }
 }
