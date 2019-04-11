@@ -75,5 +75,7 @@ https://www.booking.com/hotel/vn/villa-of-tranquility.vi.html?aid=356980;label=g
 
 Villa of Tranquility 
 
-npm install --save socket.io-client
+npm install i socket.io-client
 npm install reactjs-localstorage
+npm install --save request-promise  
+npm i html-to-react

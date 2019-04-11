@@ -12,17 +12,15 @@ class App extends Component {
 
     // if()
 
-    return (
-   
+    return (        
         <BrowserRouter>
         <Switch>
-        <Route  exact  path='/login' component={Login}/> 
+        <Route  path='/login' component={Login}/> 
         </Switch>
         <Switch>
-        <Route  exact  path='/chat' component={Chat}/> 
+        <Route  path='/chat' component={Chat}/> 
         </Switch>
-        </BrowserRouter>
-      
+        </BrowserRouter>      
     );
   }
 }

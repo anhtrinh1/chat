@@ -45,7 +45,8 @@ params.append('userName', user.userName);
   }).then(res => {
     let data = res.data; 
     if(data.status){
-      reactLocalStorage.set('userId', data.userId);      
+      console.log("data.userName" + data.userName);
+      reactLocalStorage.set('userName', data.userName);      
       window.location="/chat";
     }
   })
