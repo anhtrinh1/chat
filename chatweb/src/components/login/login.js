@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import './login.css';
 import axios from 'axios';
-import {reactLocalStorage} from 'reactjs-localstorage';
-
 class login extends Component {
 
   state = {
@@ -45,8 +43,7 @@ params.append('userName', user.userName);
   }).then(res => {
     let data = res.data; 
     if(data.status){
-      console.log("data.userName" + data.userName);
-      reactLocalStorage.set('userName', data.userName);      
+      localStorage.setItem('userName', data.userName);      
       window.location="/chat";
     }
   })
