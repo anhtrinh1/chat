@@ -4,4 +4,5 @@ module.exports = function(app) {
     // todoList Routes
     app.route('/users/login')
       .post(usersModels.login);
+    app.route('/users/getList').get(usersModels.getListUser);
   };
