@@ -13,7 +13,7 @@ module.exports = {
                     {
                         status: true, 
                         message: 'Login success!',        
-                        users: data.userName,
+                        userName: data.userName,
                         userId : rows.userId
                     }
                 );
@@ -22,11 +22,23 @@ module.exports = {
                     {
                         status: false, 
                         message: 'Login error!',        
-                        users: data.userName,
+                        userName: data.userName,
                         userId : ""
                     }
                 );     
             }         
+        });   
+    },
+    getListUser: (req, res) => {
+        let data = req.body;
+        console.log(data);
+        db.all("SELECT * FROM users ", function(err, rows) {
+            if(rows){
+                console.log(rows);
+                res.json(
+                    rows
+                );
+            }           
         });   
     }
 };
