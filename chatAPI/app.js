@@ -33,8 +33,8 @@ io.on('connection', socket => {
   socket.on('sendMessage', (data) => {
     // once we get a 'change color' event from one of our clients, we will send it to the rest of the clients
     // we make use of the socket.emit method again with the argument given to use from the callback function above
-     
-    var sented = chatRoutes.sent(data.message, data.userId, data.userIdReceive);
+    console.log("data -" + JSON.stringify(data));
+    var sented = chatRoutes.sent(data.message, data.userName, data.userReceive);
     console.log("haha -" + JSON.stringify(sented));    
     io.sockets.emit('sendMessage', sented);
    
