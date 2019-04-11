@@ -18,7 +18,7 @@ app.use(function(req, res, next) {
 let userRoutes = require('./routes/users_routes'); 
 userRoutes(app);
 let chatRoutes = require('./routes/chat_routes'); 
-    chatRoutes(app);
+    // chatRoutes(app);
 
 app.use(function(req, res) {
   res.status(404).send({url: req.originalUrl + ' not found'});
@@ -34,22 +34,9 @@ io.on('connection', socket => {
     // once we get a 'change color' event from one of our clients, we will send it to the rest of the clients
     // we make use of the socket.emit method again with the argument given to use from the callback function above
      
-    //var sented = chatRoutes.sent(data.message, data.userId, data.userIdReceive);
-    //console.log(sented);
-    // console.log(data);
-    var request = require('request');
-    const params = new URLSearchParams();
-    params.append('userIdSent',data.userId);
-    request.post({
-      headers: {'content-type' : 'application/x-www-form-urlencoded'},
-      url:     'http://localhost:4000/chat/sent',
-      body:    params
-       
-    }, function(error, response, body){
-      console.log(body);
-    });
-
-    io.sockets.emit('sendMessage', data);
+    var sented = chatRoutes.sent(data.message, data.userId, data.userIdReceive);
+    console.log("haha -" + JSON.stringify(sented));    
+    io.sockets.emit('sendMessage', sented);
    
   })
   
@@ -62,9 +49,3 @@ server.listen(port);
 
 
 console.log('RESTful API server started on: ' + port);
-
-// async function fun1(req, res){
-//   let response = await request.get('http://localhost:4000/chat/sent');
-//   if (response.err) { console.log('error');}
-//   else { console.log('fetched response');
-// }
